@@ -16,3 +16,5 @@ An implementation of lolcat in Go.
 Takes in text from stdin (supports piping) and colors it and outputs in stdout.
 
 eg: echo hello, terminal emulator!! are you in color??? | ./paintman -rainbow
+
+![screenshot](/paintman.png)
