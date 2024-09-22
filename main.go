@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
+	"io"
 	"math"
 	"math/rand"
+	"os"
 )
 
 const RESET = "\033[0m"
@@ -51,8 +54,16 @@ func main() {
 		fmt.Println("color is invalid")
 		return
 	}
+	var contentStr []rune
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		input, _, err := reader.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		contentStr = append(contentStr, input)
+	}
 
-	contentStr := "this is a line\nthis is the second line\nfinal line"
 	if rainbow {
 		randomseed := rand.Intn(100)
 		for _, char := range contentStr {
@@ -61,7 +72,9 @@ func main() {
 			fmt.Printf("\033[38;2;%d;%d;%dm%c", r, g, b, char)
 		}
 	} else {
-		fmt.Print(contentStr)
+		for _, char := range contentStr {
+			fmt.Printf("%c", char)
+		}
 	}
 	fmt.Printf("%s\n", RESET)
 }
