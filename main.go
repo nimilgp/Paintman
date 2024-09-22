@@ -3,9 +3,18 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math"
+	"math/rand"
 )
 
 const RESET = "\033[0m"
+
+func rgb(i int) (int, int, int) {
+	var f = 0.1
+	return int(math.Sin(f*float64(i)+0)*127 + 128),
+		int(math.Sin(f*float64(i)+2*math.Pi/3)*127 + 128),
+		int(math.Sin(f*float64(i)+4*math.Pi/3)*127 + 128)
+}
 
 func main() {
 	colorValueMap := map[string]int{
@@ -20,10 +29,12 @@ func main() {
 	}
 	var fgcolor string
 	var bgcolor string
+	var rainbow bool
 	var showColors bool
 	flag.StringVar(&fgcolor, "fg", "white", "select foreground color")
 	flag.StringVar(&bgcolor, "bg", "cyan", "select background color")
-	flag.BoolVar(&showColors, "colors", false, "show availible color options")
+	flag.BoolVar(&showColors, "colors", false, "show available color options")
+	flag.BoolVar(&rainbow, "rainbow", false, "rainbow text mode")
 	flag.Parse()
 
 	if showColors {
@@ -43,8 +54,17 @@ func main() {
 	}
 
 	contentStr := "this is a line\nthis is the second line\nfinal line"
-	fmt.Printf("\033[%dm", fg)
-	fmt.Printf("\033[%dm", bg+10)
-	fmt.Print(contentStr)
-	fmt.Printf("%s", RESET)
+	if rainbow {
+		randomseed := rand.Intn(100)
+		for _, char := range contentStr {
+			r, g, b := rgb(randomseed)
+			randomseed++
+			fmt.Printf("\033[38;2;%d;%d;%dm%c", r, g, b, char)
+		}
+	} else {
+		fmt.Printf("\033[%dm", fg)
+		fmt.Printf("\033[%dm", bg+10)
+		fmt.Print(contentStr)
+		fmt.Printf("%s", RESET)
+	}
 }
