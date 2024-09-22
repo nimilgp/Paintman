@@ -27,17 +27,15 @@ func main() {
 		"cyan":    36,
 		"white":   97,
 	}
-	var fgcolor string
-	// var bgcolor string
+	var color string
 	var rainbow bool
 	var showColors bool
-	flag.StringVar(&fgcolor, "color", "system default", "select color")
-	// flag.StringVar(&bgcolor, "bg", "cyan", "select background color")
+	flag.StringVar(&color, "color", "system default", "select color")
 	flag.BoolVar(&showColors, "available", false, "show available color options")
 	flag.BoolVar(&rainbow, "rainbow", false, "rainbow text mode")
 	flag.Parse()
 
-	if fgcolor != "system default" && rainbow {
+	if color != "system default" && rainbow {
 		fmt.Println("color and rainbow flags are mutually exclusive")
 		return
 	}
@@ -46,18 +44,13 @@ func main() {
 		return
 	}
 
-	fg, ok := colorValueMap[fgcolor]
+	clr, ok := colorValueMap[color]
 	if ok {
-		fmt.Printf("\033[%dm", fg)
-	} else if fgcolor != "system default" {
+		fmt.Printf("\033[%dm", clr)
+	} else if color != "system default" {
 		fmt.Println("color is invalid")
 		return
 	}
-	// bg, ok := colorValueMap[bgcolor]
-	// if !ok {
-	// 	fmt.Println("background color is invalid")
-	// 	return
-	// }
 
 	contentStr := "this is a line\nthis is the second line\nfinal line"
 	if rainbow {
@@ -68,8 +61,7 @@ func main() {
 			fmt.Printf("\033[38;2;%d;%d;%dm%c", r, g, b, char)
 		}
 	} else {
-		// fmt.Printf("\033[%dm", bg+10)
 		fmt.Print(contentStr)
-		fmt.Printf("%s", RESET)
 	}
+	fmt.Printf("%s\n", RESET)
 }
