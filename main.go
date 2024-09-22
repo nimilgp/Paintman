@@ -3,5 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("yoooooooooooooooooo")
+	exampleStr := "this is a line\nthis is the second line\nfinal line"
+	fmt.Printf(exampleStr)
 }
