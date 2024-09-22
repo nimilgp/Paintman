@@ -13,8 +13,8 @@ const White = "\033[97m"
 
 func main() {
 	contentStr := "this is a line\nthis is the second line\nfinal line"
-
+	r, g, b := 0, 0, 255
 	for _, char := range contentStr {
-		fmt.Printf("%s%c", Red, char)
+		fmt.Printf("\033[38;2;%d;%d;%dm%c", r, g, b, char)
 	}
 }
