@@ -58,7 +58,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		input, _, err := reader.ReadRune()
-		if err == io.EOF {
+		if err == io.EOF && err != nil{
 			break
 		}
 		contentStr = append(contentStr, input)
