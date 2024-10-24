@@ -1,6 +1,8 @@
 # Paintman
 An implementation of lolcat in Go. 
 
+![cat-space](https://github.com/user-attachments/assets/10fb3826-b548-44dd-9218-9e8b9920d2a6)
+
 ## Compilation
 1. move in to the directory with main.go file
 2. go build -o paintman main.go
