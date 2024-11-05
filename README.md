@@ -7,7 +7,7 @@ An implementation of lolcat in Go.
 1. move in to the directory with main.go file
 2. go build -o paintman main.go
 
-## modules used
+## Modules used
 - bufio
 - flag
 - math
